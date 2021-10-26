@@ -3,6 +3,5 @@ project(nbody)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(nbody
-        nbody.cpp)
+add_executable(nbody nbody.cpp)
 
