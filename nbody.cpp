@@ -13,7 +13,6 @@
 
 #define _USE_MATH_DEFINES // https://docs.microsoft.com/en-us/cpp/c-runtime-library/math-constants?view=msvc-160
 #include <cmath>
-#include <iostream>
 
 
 // these values are constant and not allowed to be changed
