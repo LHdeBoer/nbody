@@ -85,11 +85,14 @@ def advance(dt, n, bodies=SYSTEM, pairs=PAIRS):
             v2[2] += dz * b1m
             v2[1] += dy * b1m
             v2[0] += dx * b1m
-        for (r, [vx, vy, vz], m) in bodies:
+        for key, (r, [vx, vy, vz], m) in BODIES.items():
             r[0] += dt * vx
             r[1] += dt * vy
             r[2] += dt * vz
 
+            fh = open("Body_positions.csv", "a")
+            fh.write("{}, {}, {}, {}, {} ".format(key, r[0], r[1], r[2], "\n")) # BODIES[],
+            fh.close()
 
 def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
     for ((x1, y1, z1), v1, m1, (x2, y2, z2), v2, m2) in pairs:
