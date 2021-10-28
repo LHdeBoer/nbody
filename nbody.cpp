@@ -139,7 +139,7 @@ void advance(body state[BODIES_COUNT], double dt) {
 
         // write the new positions to a csv file.
         std::ofstream file;
-        file.open ("Body_positions.csv", std::ios::app); // use append mode
+        file.open ("Body_positions_cpp.csv", std::ios::app); // use append mode
         file << state[i].name << ";" <<  state[i].position.x << ";" << state[i].position.y << ";" << state[i].position.z << endl;
         file.close();
     }};
@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
 
         // initialize csv-file
         std::ofstream file;
-        file.open ("Body_positions.csv");
+        file.open ("Body_positions_cpp.csv");
         file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
         file.close();
 
