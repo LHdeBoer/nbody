@@ -6,14 +6,15 @@
    An implementation pretty much from scratch, with inspiration from the Rust
    version, which used the idea of saving some of the ingredients of the
    computation in an array instead of recomputing them.
-   
+
    contributed by cvergu
    slightly modified by bmmeijers
 */
 
 #define _USE_MATH_DEFINES // https://docs.microsoft.com/en-us/cpp/c-runtime-library/math-constants?view=msvc-160
 #include <cmath>
-
+#include <string>
+#include <iostream>
 
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
