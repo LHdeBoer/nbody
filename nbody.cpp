@@ -18,7 +18,6 @@
 #include <fstream>
 using namespace std;
 
-
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
 const double DAYS_PER_YEAR = 365.24;
@@ -98,6 +97,7 @@ public:
 
 
 void advance(body state[BODIES_COUNT], double dt) {
+
     /*
      * We precompute the quantity (r_i - r_j)
      */
@@ -138,8 +138,8 @@ void advance(body state[BODIES_COUNT], double dt) {
         state[i].position += state[i].velocity * dt;
 
         // write the new positions to a csv file.
-        std::ofstream file;
-        file.open ("Body_positions_cpp.csv", std::ios::app); // use append mode
+        std::fstream file;
+        file.open ("Body_positions_cpp.csv", std::ios_base::app); // use append mode
         file << state[i].name << ";" <<  state[i].position.x << ";" << state[i].position.y << ";" << state[i].position.z << endl;
         file.close();
     }};
@@ -248,6 +248,12 @@ body state[] = {
 
 
 int main(int argc, char **argv) {
+// initialize csv-file
+    std::fstream file;
+    file.open ("Body_positions_cpp.csv", std::ios_base::app);
+    file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
+    file.close();
+
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;
         std::cout << "Call this program with an integer as program argument" << std::endl;
@@ -257,12 +263,6 @@ int main(int argc, char **argv) {
         const unsigned int n = atoi(argv[1]);
         offset_momentum(state);
         std::cout << energy(state) << std::endl;
-
-        // initialize csv-file
-        std::ofstream file;
-        file.open ("Body_positions_cpp.csv");
-        file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
-        file.close();
 
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
