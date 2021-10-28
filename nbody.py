@@ -12,6 +12,11 @@
 import sys
 from math import sqrt, pi as PI
 
+# initialize file
+fh = open("Body_positions.csv", "w")
+fh.write("{}; {}; {}; {}; {}".format("Body_name", "x_position", "y_position", "z_position", "\n"))
+fh.close()
+
 
 def combinations(l):
     result = []
@@ -91,7 +96,7 @@ def advance(dt, n, bodies=SYSTEM, pairs=PAIRS):
             r[2] += dt * vz
 
             fh = open("Body_positions.csv", "a")
-            fh.write("{}, {}, {}, {}, {}".format(key, r[0], r[1], r[2], "\n")) # BODIES[],
+            fh.write("{}; {}; {}; {}; {}".format(key, r[0], r[1], r[2], "\n")) # BODIES[],
             fh.close()
 
 def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
