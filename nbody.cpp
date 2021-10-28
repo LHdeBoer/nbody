@@ -15,6 +15,9 @@
 #include <cmath>
 #include <string>
 #include <iostream>
+#include <fstream>
+using namespace std;
+
 
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
@@ -133,8 +136,13 @@ void advance(body state[BODIES_COUNT], double dt) {
      */
     for (unsigned int i = 0; i < BODIES_COUNT; ++i) {
         state[i].position += state[i].velocity * dt;
-    }
-}
+
+        // write the new positions to a csv file.
+        std::ofstream file;
+        file.open ("Body_positions.csv", std::ios::app); // use append mode
+        file << state[i].name << ";" <<  state[i].position.x << ";" << state[i].position.y << ";" << state[i].position.z << endl;
+        file.close();
+    }};
 
 void offset_momentum(body state[BODIES_COUNT]) {
     vector3d &sun_velocity = state[0].velocity;
@@ -249,6 +257,13 @@ int main(int argc, char **argv) {
         const unsigned int n = atoi(argv[1]);
         offset_momentum(state);
         std::cout << energy(state) << std::endl;
+
+        // initialize csv-file
+        std::ofstream file;
+        file.open ("Body_positions.csv");
+        file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
+        file.close();
+
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
         }
