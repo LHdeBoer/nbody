@@ -141,10 +141,10 @@ void advance(body state[BODIES_COUNT], double dt) {
         state[i].position += state[i].velocity * dt;
 
         // write the new positions to a csv file.
-        std::fstream file;
-        file.open ("Body_positions_cpp.csv", std::ios_base::app); // use append mode
-        file << state[i].name << ";" <<  state[i].position.x << ";" << state[i].position.y << ";" << state[i].position.z << endl;
-        file.close();
+//        std::fstream file;
+//        file.open ("Body_positions_cpp.csv", std::ios_base::app); // use append mode
+//        file << state[i].name << ";" <<  state[i].position.x << ";" << state[i].position.y << ";" << state[i].position.z << endl;
+//        file.close();
     }};
 
 void offset_momentum(body state[BODIES_COUNT]) {
@@ -251,11 +251,11 @@ body state[] = {
 
 
 int main(int argc, char **argv) {
-// initialize csv-file
-    std::fstream file;
-    file.open ("Body_positions_cpp.csv", std::ios_base::app);
-    file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
-    file.close();
+//// initialize csv-file
+//    std::fstream file;
+//    file.open ("Body_positions_cpp.csv", std::ios_base::app);
+//    file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
+//    file.close();
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
