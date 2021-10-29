@@ -16,6 +16,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <time.h>
+
 using namespace std;
 
 // these values are constant and not allowed to be changed
@@ -23,6 +25,9 @@ const double SOLAR_MASS = 4 * M_PI * M_PI;
 const double DAYS_PER_YEAR = 365.24;
 const unsigned int BODIES_COUNT = 5;
 
+clock_t start, end;
+double cpu_time_used;
+start = clock();
 
 class vector3d {
 public:
@@ -86,7 +91,6 @@ vector3d operator/(vector3d v, double mag) {
     };
 }
 
-
 class body {
 public:
     std::string name;
@@ -94,7 +98,6 @@ public:
     vector3d velocity;
     double mass;
 };
-
 
 void advance(body state[BODIES_COUNT], double dt) {
 
@@ -253,6 +256,8 @@ int main(int argc, char **argv) {
     file.open ("Body_positions_cpp.csv", std::ios_base::app);
     file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
     file.close();
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;

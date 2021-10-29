@@ -17,7 +17,6 @@ fh = open("Body_positions_python.csv", "w")
 fh.write("{}; {}; {}; {}; {}".format("Body_name", "x_position", "y_position", "z_position", "\n"))
 fh.close()
 
-
 def combinations(l):
     result = []
     for x in range(len(l) - 1):
@@ -25,7 +24,6 @@ def combinations(l):
         for y in ls:
             result.append((l[x][0], l[x][1], l[x][2], y[0], y[1], y[2]))
     return result
-
 
 SOLAR_MASS = 4 * PI * PI
 DAYS_PER_YEAR = 365.24
@@ -73,7 +71,6 @@ BODIES = {
 SYSTEM = tuple(BODIES.values())
 PAIRS = tuple(combinations(SYSTEM))
 
-
 def advance(dt, n, bodies=SYSTEM, pairs=PAIRS):
     for i in range(n):
         for ([x1, y1, z1], v1, m1, [x2, y2, z2], v2, m2) in pairs:
@@ -109,7 +106,6 @@ def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
         e += m * (vx * vx + vy * vy + vz * vz) / 2.0
     print("Energy: %.9f" % e)
 
-
 def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
     for (r, [vx, vy, vz], m) in bodies:
         px -= vx * m
@@ -120,20 +116,23 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
     v[1] = py / m
     v[2] = pz / m
 
-
 def main(n, ref="sun"):
     offset_momentum(BODIES[ref])
     report_energy()
     advance(0.01, n)
     report_energy()
 
+# import time
+# start_time = time.perf_counter()
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         main(int(sys.argv[1]))
+        # print(time.perf_counter() - start_time, "seconds")
         sys.exit(0)
     else:
         print(f"This is {sys.argv[0]}")
         print("Call this program with an integer as program argument")
         print("(to set the number of iterations for the n-body simulation).")
         sys.exit(1)
+
