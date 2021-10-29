@@ -16,7 +16,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <time.h>
+#include <ctime>
 
 using namespace std;
 
@@ -25,9 +25,6 @@ const double SOLAR_MASS = 4 * M_PI * M_PI;
 const double DAYS_PER_YEAR = 365.24;
 const unsigned int BODIES_COUNT = 5;
 
-clock_t start, end;
-double cpu_time_used;
-start = clock();
 
 class vector3d {
 public:
@@ -251,13 +248,15 @@ body state[] = {
 
 
 int main(int argc, char **argv) {
-//// initialize csv-file
+// // initialize csv-file
 //    std::fstream file;
 //    file.open ("Body_positions_cpp.csv", std::ios_base::app);
 //    file << "Body_name" << ";" << "x_position" << ";" << "y_position" << ";" << "z_position" << endl;
 //    file.close();
-    end = clock();
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+    clock_t start, end;
+    float cpu_time_used;
+    start = clock();
 
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;
@@ -273,6 +272,11 @@ int main(int argc, char **argv) {
             advance(state, 0.01);
         }
         std::cout << energy(state) << std::endl;
+
+        // end the timer and shown time of computation.
+        end = clock();
+        cpu_time_used = ((float) (end - start)) / CLOCKS_PER_SEC;
+        cout << "time used for program : " << cpu_time_used << "sec" << endl;
         return EXIT_SUCCESS;
     }
 }
